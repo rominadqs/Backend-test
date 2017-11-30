@@ -19,7 +19,7 @@ describe('GET /client', function(){
     it('user data filtered by user id', function(done){
         request(httpServer)
             .get('/client')
-            .query({ userId: 'test' })
+            .query({ userId: 'a0ece5db-cd14-4f21-812f-966633e7be86' })
             .expect(200)
             .end(function(err, res) {
                 if (err) {
@@ -31,7 +31,7 @@ describe('GET /client', function(){
     it('user data filtered by name', function(done){
         request(httpServer)
             .get('/client')
-            .query({ userName: 'test' })
+            .query({ userName: 'Britney' })
             .expect(200)
             .end(function(err, res) {
                 if (err) {

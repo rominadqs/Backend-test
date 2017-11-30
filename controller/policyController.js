@@ -50,6 +50,7 @@ var getPoliciesByName = (userName) => {
     var deferred = Q.defer();
     
     clientsController.getClientsByName(userName).then((client) => {
+        var role = client.role;
         service.getData(urlService).then((data) => {
             var policiesList = data.policies,
                 policies = [];
@@ -60,7 +61,7 @@ var getPoliciesByName = (userName) => {
                 }
             }
 
-            deferred.resolve(policies);
+            deferred.resolve({'policies': policies, 'role': role});
         }).fail((e) =>{
             deferred.reject(e);
         });

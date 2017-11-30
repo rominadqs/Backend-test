@@ -18,15 +18,25 @@ const express = require('express'),
  * @return {Object} userData
  */
 router.route('/client').get((req, res) => {
+    var roles = ['user', 'admin'];
     if(req.query.userId){
         clientsController.getClientsById(req.query.userId).then((userData) =>{
-            res.status(200).json(userData)
+            if (roles.indexOf(userData.role) >= 0){
+               res.status(200).json(userData) 
+            } else {
+                res.status(203).json({'status': 'ko', 'code': '4', 'message': 'no authorize'})
+            }
+            
         }).fail((e) => {
             res.status(400).json({'status': 'ko', 'code': '1', 'message': e});
         })
     } else if (req.query.userName){
         clientsController.getClientsByName(req.query.userName).then((userData) =>{
-            res.status(200).json(userData)
+            if (roles.indexOf(userData.role) >= 0){
+                res.status(200).json(userData) 
+             } else {
+                 res.status(203).json({'status': 'ko', 'code': '4', 'message': 'no authorize'})
+             }
         }).fail((e) => {
             res.status(400).json({'status': 'ko', 'code': '2', 'message': e});
         })
@@ -45,9 +55,14 @@ router.route('/client').get((req, res) => {
  * @return {Object} userData
  */
 router.route('/user').get((req, res) => {
+    var roles = ['admin'];
     if (req.query.policyNumber){
         clientsController.getUserBypolicy(req.query.policyNumber).then((userData) =>{
-            res.status(200).json(userData)
+            if (roles.indexOf(userData.role) >= 0){
+                res.status(200).json(userData) 
+             } else {
+                 res.status(203).json({'status': 'ko', 'code': '4', 'message': 'no authorize'})
+             }
         }).fail((e) => {
             res.status(400).json({'status': 'ko', 'code': '1', 'message': e});
         })
