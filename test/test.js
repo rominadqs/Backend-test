@@ -8,9 +8,6 @@ var request = require('supertest'),
 
 var httpServer = http.createServer(app).listen(4200);
 
-/*var mssql = rewire('../model/mssql.js'),
-    sqlController = rewire('../controller/sqlConnection.js');*/
-
 var app = require('../app'), //Require app
     http = require('http');
 
